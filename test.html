@@ -8,47 +8,46 @@
   </head>
   <body>
     <script>
-      Function.prototype.myApply = function (context, args) {
-        //这里默认不传就是给window,也可以用es6给参数设置默认参数
-        context = context || window;
-        args = args ? args : [];
-        //给context新增一个独一无二的属性以免覆盖原有属性
-        const key = Symbol();
-        context[key] = this;
-        //通过隐式绑定的方式调用函数
-        const result = context[key](...args);
-        //删除添加的属性
-        delete context[key];
-        //返回函数调用的返回值
-        return result;
-      };
-      // -------------------------------------------------------------------------------------
-      const obj1 = {
+      let obj1 = { name: "tom" };
+      let obj2 = {
         name: "joy",
-        getName(a, b, c) {
-          console.log(this);
+        getName(a, b, c, d) {
           console.log(this.name);
-          console.log(a + b + c);
+          console.log(arguments);
+          console.log(a + b + c + d);
         },
       };
-
-      const obj2 = { name: "sam" };
-
-      obj1.getName(2, 3, 4); // obj1{}, joy, 9
-
-      obj1.getName.myApply(obj2, [1, 2, 3]); //obj2{}, sam ,6
+      // this： 谁调用指向谁
+      // obj2.getName(); // joy
 
       /**
-       * 解析
-       * 1. obj1.getName.myApply(obj2, [1, 2, 3])  会先找到 obj1.getName 这个函数，在这个基础上调用 myApply() 函数
-       * 2. 根据 this 谁调用指向谁 ，所以当前 this 是 obj1.getName 这个函数
-       * 3. myApply(obj2, [1, 2, 3]) 拥有两个参数 第一个参数是对象，第二个参数是数组；
-       * 4. myApply 会把这个 方法（this） 绑定到第一个参数上，当前 方法（this） 就是调用 myApply 的函数；相当与给第一个参数添加一个方法
-       * 5. 传入第二参数，然后执行这个 this（方法）；
-       * 6. 获取这个方法(this)的返回值，
-       * 7. 删除这个方法（this）
-       * 8. 返回这个方法（this）的返回值
+       * 封装时需要注意的点
+       * 1. 参数：应为时不知道有多少个参数，但是最低应该会有一个
+       * 2. 返回值：一个绑定好的的函数
+       * 3. 与call 的区别：返回值不同
+       * 4. 与apply 的区别： 参数不同，返回值也不同
        * **/
+      Function.prototype.myBind = function (context, ...args) {
+        // context : this需要指向的对象
+        // args: 因为不知道有多少个参数，所以这里使用扩展运算符 可以使用 arguments 代替 // [1, 2, 3, 4]
+        const fn = this;
+        args = args ? args : [];
+        return function newFn(...newFnArgs) {
+          //  this instanceof newFn  检测 this 这个函数 在不在 newFn 这个函数上
+          //  在的话直接调用 fn 函数
+          if (this instanceof newFn) {
+            return new fn(...args, ...newFnArgs);
+          }
+          return fn.apply(context, [...args, ...newFnArgs]);
+        };
+      };
+
+       let  fun =  obj2.getName.myBind(obj1, 1, 2, 3, 4)();
+      // tom
+      // Arguments(4) [1, 2, 3, 4, callee: ƒ, Symbol(Symbol.iterator): ƒ]
+      // 10
+      var a = document.write;
+      a.myBind(document)("hello");
     </script>
   </body>
 </html>
