@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML元素周期表</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #fff;
+      position: relative;
+    }
+    main {
+      width: 100%;
+      height: 100%;
+      min-width: 1000px;
+      font-size: 14px;
+    }
+    main > section {
+      width: 80%;
+      height: 80%;
+      min-width: 1000px;
+      position: absolute;
+      top: 0px;
+      left: 0;
+      right: 0;
+      bottom: 100px;
+      margin: auto;
+    }
+    main > section>div >ul {
+        display: flex;
+        
+
+    }
+    main > section>div >ul> li  {
+        flex: 1;
+        height: 50px;
+       
+    }
+    .element {
+      width: 50px !important;
+      height: 50px !important;
+      padding: 0;
+      margin: 0;
+      line-height: 50px;
+      text-align: center;
+      border-radius: 5px;
+      margin:5px;
+      overflow: hidden;
+    }
+    .root {
+      background: #a7dec9;
+    }
+    .table {
+      background: #f2b19a;
+    }
+    footer {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 100px;
+      width: 80%;
+      background: #fff;
+      box-shadow: 0px 1px 4px rgb(0 0 0 / 10%);
+      border: 1px solid #d2d2d2;
+      border-radius: 10px 10px 0 0;
+      margin: auto;
+      min-width: 1000px;
+    }
+    footer > ul {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    footer > ul > li {
+      width: 20%;
+      height: 30px;
+      display: flex;
+      margin-bottom: 5px;
+      line-height: 30px;
+      font-size: 14px;
+    }
+    footer > ul > li > div {
+      width: 30px;
+      height: 30px;
+      border-radius: 5px;
+    }
+  </style>
+  <body>
+    <!-- http://www.html5star.com/manual/html5label-meaning/ -->
+    <main>
+      <section>
+        <div>
+          <ul>
+            <li class="element root">html</li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li class="element table">col</li>
+            <li class="element table">table</li>
+          </ul>
+          <ul>
+            <li class="element root">html</li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li class="element ">div</li>
+            <li class="element ">fieldset</li>
+            <li class="element ">form</li>
+            <li class="element ">body</li>
+            <li class="element ">h1</li>
+            <li class="element ">section</li>
+            <li class="element table">colgroup</li>
+            <li class="element table">tr</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <ul>
+        <li>
+          <div style="margin-right: 5px; background: #a7dec9"></div>
+          根元素
+        </li>
+        <li>
+          <div style="margin-right: 5px; background: rgb(255, 255, 100)"></div>
+          文本级别语义
+        </li>
+        <li>
+          <div style="margin-right: 5px; background: rgb(100, 255, 100)"></div>
+          表单
+        </li>
+        <li>
+          <div style="margin-right: 5px; background: #f2b19a"></div>
+          表格数据
+        </li>
+        <li>
+          <div style="margin-right: 5px; background: rgb(120, 140, 255)"></div>
+          元数据和脚本
+        </li>
+        <li>
+          <div style="margin-right: 5px; background: rgb(255, 150, 80)"></div>
+          组合内容
+        </li>
+        <li>
+          <div style="margin-right: 5px; background: rgb(160, 175, 255)"></div>
+          文档章节
+        </li>
+        <li>
+          <div style="margin-right: 5px; background: #fff"></div>
+          交互元素
+        </li>
+        <li>
+          <div style="margin-right: 5px; background: rgb(255, 150, 255)"></div>
+          嵌入式内容
+        </li>
+        <li></li>
+      </ul>
+    </footer>
+  </body>
+  <script></script>
+</html>

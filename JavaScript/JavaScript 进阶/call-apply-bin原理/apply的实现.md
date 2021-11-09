@@ -1,0 +1,44 @@
+## 1、call 的实现原理
+```js
+      Function.prototype.myApply = function (context, args) {
+        //这里默认不传就是给window,也可以用es6给参数设置默认参数
+        context = context || window;
+        args = args ? args : [];
+        //给context新增一个独一无二的属性以免覆盖原有属性
+        const key = Symbol();
+        context[key] = this;
+        //通过隐式绑定的方式调用函数
+        const result = context[key](...args);
+        //删除添加的属性
+        delete context[key];
+        //返回函数调用的返回值
+        return result;
+      };
+      // -------------------------------------------------------------------------------------
+      const obj1 = {
+        name: "joy",
+        getName(a, b, c) {
+          console.log(this);
+          console.log(this.name);
+          console.log(a + b + c);
+        },
+      };
+
+      const obj2 = { name: "sam" };
+
+      obj1.getName(2, 3, 4); // obj1{}, joy, 9
+
+      obj1.getName.myApply(obj2, [1, 2, 3]); //obj2{}, sam ,6
+
+      /**
+       * 解析
+       * 1. obj1.getName.myApply(obj2, [1, 2, 3])  会先找到 obj1.getName 这个函数，在这个基础上调用 myApply() 函数
+       * 2. 根据 this 谁调用指向谁 ，所以当前 this 是 obj1.getName 这个函数
+       * 3. myApply(obj2, [1, 2, 3]) 拥有两个参数 第一个参数是对象，第二个参数是数组；
+       * 4. myApply 会把这个 方法（this） 绑定到第一个参数上，当前 方法（this） 就是调用 myApply 的函数；相当与给第一个参数添加一个方法
+       * 5. 传入第二参数，然后执行这个 this（方法）；
+       * 6. 获取这个方法(this)的返回值，
+       * 7. 删除这个方法（this）
+       * 8. 返回这个方法（this）的返回值
+       * **/
+```
